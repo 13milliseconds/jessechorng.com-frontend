@@ -1,32 +1,22 @@
 import React from "react";
 import Link from "next/link";
 import Image from "./image";
+import Moment from "react-moment";
 
-const Card = ({ article }) => {
+const Card = ({ update }) => {
+  console.log(update)
+  const slug = update.attributes.project.data.attributes.Slug;
+
   return (
-    <Link as={`/project/${article.slug}`} href="/project/[id]">
+    <Link as={`/project/${slug}`} href={"/project/" + slug}>
       <a className="uk-link-reset">
+      <p className="uk-text-meta uk-margin-remove-top">
+                <Moment format="MMM Do YYYY">{update.attributes.publishedAt}</Moment>
+          </p>
         <div className="uk-card uk-card-muted">
-          {article.attributes.Content.map(contentBlock => contentBlock.__component == 'media.text' ? 
-            <div className="uk-card-media-top">
-              {contentBlock.Text}
-          </div>
-            :
-            <div className="uk-card-media-top">
-            {contentBlock.photo && <Image image={contentBlock.photo} />}
-          </div>  
+          {update.attributes.Content.map(contentBlock => contentBlock.__typename == 'ComponentMediaPhoto' ? 
+            <div className="uk-card-media-top"><Image image={contentBlock.Photo} /></div>  : ''
             )}
-          <div className="uk-card-media-top">
-            {article.image && <Image image={article.image} />}
-          </div>
-          <div className="uk-card-body">
-            <p id="category" className="uk-text-uppercase">
-              {article.category && article.category.data.attributes.title}
-            </p>
-            <p id="title" className="uk-text-large">
-              {article.title}
-            </p>
-          </div>
         </div>
       </a>
     </Link>
