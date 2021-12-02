@@ -10,11 +10,12 @@ import { useQuery, gql } from "@apollo/client";
 
 const Project = ({ params }) => {
     const { loading, error, data } = useQuery(gql`
-    query Project {
-        project(id: 1){
-            data {
+    query Project($slug: String) {
+        projects(filters: { Slug: { eq: $slug }}){
+            data { 
             id
             attributes {
+                  Slug
                 Name
               project_updates{
                 data{
@@ -51,12 +52,11 @@ const Project = ({ params }) => {
             }
         }
     }
-    `); //, { variables: { slug: params.slug } }
+    `, { variables: { slug: params.slug } });
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     
-    const project = data.project.data;
-console.log("Project:", project)
+    const project = data.projects.data[0];
     
   const imageUrl = getStrapiMedia(project.image);
 
