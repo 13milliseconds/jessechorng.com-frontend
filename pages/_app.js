@@ -4,6 +4,17 @@ import "../assets/css/style.css";
 import { createContext } from "react";
 import { getStrapiMedia } from "../lib/media";
 import { fetchAPI } from "../lib/api";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+
+//Start Apollo client
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/graphql",
+  cache: new InMemoryCache()
+});
 
 // Store Strapi Global object in context
 export const GlobalContext = createContext({});
@@ -28,7 +39,9 @@ const MyApp = ({ Component, pageProps }) => {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
       </Head>
       <GlobalContext.Provider value={global}>
-        <Component {...pageProps} />
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+        </ApolloProvider>
       </GlobalContext.Provider>
     </>
   );
@@ -42,7 +55,7 @@ MyApp.getInitialProps = async (ctx) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
-  const global = await fetchAPI("/global?populate=*");
+  const global = await fetchAPI("/api/global?populate=*");
   // Pass the data to our page via props
   return { ...appProps, pageProps: { global } };
 };

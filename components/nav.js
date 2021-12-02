@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 
 const Nav = ({ categories }) => {
-  console.log(categories)
   return (
     <div>
       <nav className="uk-navbar-container" data-uk-navbar>
@@ -16,7 +15,7 @@ const Nav = ({ categories }) => {
           </ul>
         </div>
         <div className="uk-navbar-right">
-          <ul className="uk-navbar-nav">
+          {/* <ul className="uk-navbar-nav">
             {categories.data.map((category) => {
               return (
                 <li key={category.id}>
@@ -26,7 +25,7 @@ const Nav = ({ categories }) => {
                 </li>
               );
             })}
-          </ul>
+          </ul> */}
         </div>
       </nav>
     </div>

@@ -1,53 +1,102 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import Moment from "react-moment";
 import { fetchAPI } from "../../lib/api";
 import Layout from "../../components/layout";
 import Image from "../../components/image";
 import Seo from "../../components/seo";
+import UpdateBlock from "../../components/update-block";
 import { getStrapiMedia } from "../../lib/media";
+import { useQuery, gql } from "@apollo/client";
 
-const Project = ({ project, categories }) => {
+const Project = ({ params }) => {
+    const { loading, error, data } = useQuery(gql`
+    query Project {
+        project(id: 1){
+            data {
+            id
+            attributes {
+                Name
+              project_updates{
+                data{
+                  id,
+                  attributes{
+                    Content{
+                      __typename
+                      ... on ComponentMediaPhoto{
+                        Description
+                        Photo{
+                          data{
+                            attributes{
+                              url
+                            }
+                          }
+                        }
+                      }
+                      ... on ComponentMediaText{
+                        Text
+                      }
+                    }
+                  }
+                }
+                  }
+                category {
+                data {
+                    id
+                    attributes {
+                    Title
+                    }
+                }
+                }
+            }
+            }
+        }
+    }
+    `); //, { variables: { slug: params.slug } }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+    
+    const project = data.project.data;
+console.log("Project:", project)
+    
   const imageUrl = getStrapiMedia(project.image);
 
   const seo = {
-    metaTitle: project.title,
+    metaTitle: project.attributes.Name,
     metaDescription: project.description,
     shareImage: project.image,
     project: true,
   };
 
   return (
-    <Layout categories={categories}>
+    <Layout>
       <Seo seo={seo} />
       <div
         id="banner"
-        className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-padding uk-margin"
+        className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-padding uk-margin"
         data-src={imageUrl}
         data-srcset={imageUrl}
         data-uk-img
       >
-        <h1>{project.title}</h1>
+        <h1>{project.attributes.Name}</h1>
       </div>
+          <div className="uk-section">
+        <div className="uk-container uk-container-small">
+              {project.attributes.project_updates.data.map(update => <UpdateBlock update={update} key={ update.id }/>) }
+              </div>
+        </div>
       <div className="uk-section">
         <div className="uk-container uk-container-small">
           <ReactMarkdown source={project.content} escapeHtml={false} />
-          <hr className="uk-divider-small" />
           <div className="uk-grid-small uk-flex-left" data-uk-grid="true">
-            <div className="uk-width-expand">
-              <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">{project.published_at}</Moment>
-              </p>
-            </div>
           </div>
         </div>
-      </div>
+          </div>
     </Layout>
   );
 };
 
 export async function getStaticPaths() {
-  const projects = await fetchAPI("/projects?populate=*");
+  const projects = await fetchAPI("/api/projects?populate=*");
   return {
       paths: projects.data.map((project) => ({
           params: {
@@ -59,13 +108,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const projects = await fetchAPI(
-        `/projects?slug=${params.slug}&populate=*`
-        );
-    const categories = await fetchAPI("/categories?populate=*");
+    // const projects = await fetchAPI(
+    //     `/projects?slug=${params.slug}&populate[project_updates][populate]=*`
+    // );
+    
+    //const categories = await fetchAPI("/categories?populate=*");
 
   return {
-    props: { project: projects.data[0], categories },
+    props: {params},
     revalidate: 1,
   };
 }
