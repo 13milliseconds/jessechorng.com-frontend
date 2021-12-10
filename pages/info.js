@@ -4,20 +4,35 @@ import Years from "../components/years";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import { fetchAPI } from "../lib/api";
+import { useQuery, gql } from "@apollo/client";
 
-const Home = ({ homepage }) => {
+const Info = ({ homepage }) => {
+  const { loading, error, data } = useQuery(gql`
+  query{
+    info{
+        data { 
+        attributes{
+            title
+            biography
+          }
+  }
+}
+}
+    `);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+    
+  const infoContent = data.info.data.attributes;
+  
   return (
     <Layout>
       <Seo seo={homepage.seo}/>
       <div className="uk-section">
         <div className="uk-container uk-container-large">
-          <h1>{homepage.title}</h1>
+          <h1>{ infoContent.title }</h1>
           <div className="uk-grid uk-grid-large">
             <div id="year">
-              <Years />
-            </div>
-            <div className="uk-width-expand">
-              <Articles />
+              { infoContent.biography }
             </div>
         </div>
         </div>
@@ -38,4 +53,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+export default Info;

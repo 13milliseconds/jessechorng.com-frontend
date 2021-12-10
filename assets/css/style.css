@@ -3,8 +3,7 @@ a {
   }
   
   h1 {
-    font-family: Staatliches;
-    font-size: 120px;
+    font-size: 2em;
   }
   
   #category {
@@ -21,7 +20,6 @@ a {
   
   #banner {
     margin: 20px;
-    height: 800px;
   }
   
   #editor {
@@ -31,8 +29,8 @@ a {
   }
   
   .uk-navbar-container {
+    padding: 10px;
     background: #fff !important;
-    font-family: Staatliches;
   }
   
   img:hover {

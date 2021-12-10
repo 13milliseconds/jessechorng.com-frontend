@@ -72,7 +72,7 @@ const Project = ({ params }) => {
       <Seo seo={seo} />
       <div
         id="banner"
-        className="uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-padding uk-margin"
+        className="uk-flex uk-flex-center uk-flex-middle uk-padding uk-margin"
         data-src={imageUrl}
         data-srcset={imageUrl}
         data-uk-img
