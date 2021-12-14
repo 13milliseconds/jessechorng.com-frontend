@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "react-moment";
+import styles from './years.module.scss'
 import { useQuery, gql } from "@apollo/client";
 
 const Years = () => {
@@ -29,7 +29,7 @@ const Years = () => {
   return (
     <div id="years">
       {years.map((year, i) => {
-        return <div className="year"><a>{year}</a></div>
+        return <div className={[styles.year, i==0 && styles.current ].join(' ')}><a>{year}</a></div>
        })}
     </div>
   );

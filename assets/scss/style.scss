@@ -1,0 +1,128 @@
+$black : #000000;
+$white : #ffffff;
+
+body{
+    font-family: 'Basier Square';
+  }
+  a {
+      text-decoration: none;
+    }
+    
+    h1 {
+      font-size: 2em;
+    }
+  
+    nav{
+      font-size: 2em;
+      font-family: 'Migra';
+      color: $black;
+
+      .title{
+          &::after{
+              content: '\00a0';
+          }
+      }
+
+      a{
+        color: $black;
+      }
+
+      #categories{
+        display: inline-block;
+        
+        .category{
+            display: inline-block;
+            cursor: pointer;
+            margin-left: .5em;
+
+            &::before{
+                content: '\00a0';
+            }
+              
+              .box{
+                  display: inline-block;
+                  width: .5em;
+                  height: .5em;
+                  border: 1px solid $black;
+                  margin-right: .5em;
+                  position: relative;
+                  display: inline-flex;
+                flex-direction: column;
+                justify-content: center;
+              }
+
+              &.selected,
+                &:hover{
+                    .box{
+                    &:before,
+                    &:after{
+                        content: '';
+                        position: absolute;
+                        width: 130%;
+                        height: 1px;
+                        left: -10%;
+                        background-color: $black;
+                    }
+
+                    &:before{
+                        transform: rotate(45deg);
+                    }
+                    &:after{
+                        transform: rotate(-45deg);
+                    }
+                    }
+                }
+          }
+      }
+    }
+    
+    #category {
+      font-weight: 500;
+    }
+    
+    #title {
+      letter-spacing: 0.4px;
+      font-size: 22px;
+      font-size: 1.375rem;
+      line-height: 1.13636;
+    }
+    
+    #banner {
+      margin: 20px;
+    }
+    
+    #editor {
+      font-size: 16px;
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+    
+    .uk-navbar-container {
+      padding: 10px;
+      background: $white !important;
+    }
+    
+    img:hover {
+      opacity: 1;
+      transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+  
+  
+  /* Font */
+  @font-face {
+    font-family: 'Basier Square';
+    src: url('../fonts/BasierSquare-Regular.woff2') format('woff2'),
+        url('../fonts/BasierSquare-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Migra';
+    src: url('../fonts/Migra-Extralight.woff2') format('woff2'),
+        url('../fonts/Migra-Extralight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }

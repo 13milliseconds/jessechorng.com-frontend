@@ -4,7 +4,6 @@ import Image from "./image";
 import Moment from "react-moment";
 
 const Card = ({ update }) => {
-  console.log(update)
   const slug = update.attributes.project.data.attributes.Slug;
 
   return (
