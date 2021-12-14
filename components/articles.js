@@ -9,7 +9,7 @@ const Articles = ({ articles }) => {
         data { 
         id
         attributes {
-          publishedAt
+          updateDate
           project{
             data{
               attributes{

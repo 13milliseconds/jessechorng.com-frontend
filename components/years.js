@@ -1,5 +1,5 @@
 import React from "react";
-import Moment from "react-moment";
+import moment from "react-moment";
 import { useQuery, gql } from "@apollo/client";
 
 const Years = () => {
@@ -9,30 +9,7 @@ const Years = () => {
         data { 
         id
         attributes {
-          publishedAt
-          project{
-            data{
-              attributes{
-                Slug
-              }
-            }
-          }
-          Content{
-            __typename
-            ... on ComponentMediaPhoto{
-              Description
-              Photo{
-                data{
-                  attributes{
-                    url
-                  }
-                }
-              }
-            }
-            ... on ComponentMediaText{
-              Text
-            }
-          }
+          updateDate
         }
   }
 }
@@ -44,8 +21,9 @@ const Years = () => {
   const updates = data.projectUpdates.data;
   let years = [];
   updates.forEach(update => {
-    let year = <Moment format="Y">{update.attributes.publishedAt}</Moment>;
-    !years.includes(year) && years.push(year);
+    let year = new Date(update.attributes.updateDate).getFullYear();
+    console.log(years)
+    !years.includes(year) && years.push(year)
   });
 
   return (

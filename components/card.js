@@ -11,7 +11,7 @@ const Card = ({ update }) => {
     <Link as={`/project/${slug}`} href={"/project/" + slug}>
       <a className="uk-link-reset">
       <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">{update.attributes.publishedAt}</Moment>
+                <Moment format="MMM Do YYYY">{update.attributes.updateDate}</Moment>
           </p>
         <div className="uk-card uk-card-muted">
           {update.attributes.Content.map(contentBlock => contentBlock.__typename == 'ComponentMediaPhoto' ? 
