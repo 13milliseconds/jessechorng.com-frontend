@@ -14,6 +14,13 @@ const Articles = ({ articles }) => {
             data{
               attributes{
                 Slug
+                category{
+                  data{
+                    attributes{
+                      Title
+                    }
+                  }
+                }
               }
             }
           }
@@ -45,9 +52,7 @@ const Articles = ({ articles }) => {
 
   return (
     <div>
-      <div className="uk-child-width-1-2@s" data-uk-grid="true">
-        <div>
-          <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid>
+          <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid uk-grid="masonry: true">
             {updates.map((update, i) => {
               return (
                 <Card
@@ -57,8 +62,6 @@ const Articles = ({ articles }) => {
               );
             })}
           </div>
-        </div>
-      </div>
     </div>
   );
 };

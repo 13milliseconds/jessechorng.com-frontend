@@ -1,5 +1,5 @@
 import React from "react";
-import Articles from "../components/articles";
+import Updates from "../components/updates";
 import Years from "../components/years";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
@@ -17,7 +17,7 @@ const Home = ({ homepage }) => {
               <Years />
             </div>
             <div className="uk-width-expand">
-              <Articles />
+              <Updates />
             </div>
         </div>
         </div>

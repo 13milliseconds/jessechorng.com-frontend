@@ -1,5 +1,5 @@
 import React from "react";
-import Articles from "../components/articles";
+import Articles from "../components/updates";
 import Years from "../components/years";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
