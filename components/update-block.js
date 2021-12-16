@@ -12,12 +12,11 @@ const UpdateBlock = ({ update }) => {
         <div>
           <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid>
             { update.attributes.Content.map(contentBlock => contentBlock.__typename == 'ComponentMediaText' ? 
-            <div className="uk-card-media-top">
+              <div className="uk-card-media-top" key={ contentBlock.__typename + contentBlock.id }>
               {contentBlock.Text}
           </div>
             :
-              <div className="uk-card-media-top">
-                { console.log(contentBlock) }
+              <div className="uk-card-media-top" key={ contentBlock.__typename + contentBlock.id }>
                 <Image image={contentBlock.Photo} />
                 <div className="caption">
                   {contentBlock.Description}

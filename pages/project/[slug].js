@@ -24,16 +24,22 @@ const Project = ({ params }) => {
                     Content{
                       __typename
                       ... on ComponentMediaPhoto{
+                        id
                         Description
                         Photo{
                           data{
                             attributes{
                               url
+                              width
+                              height
+                              alternativeText
+                              name
                             }
                           }
                         }
                       }
                       ... on ComponentMediaText{
+                        id
                         Text
                       }
                     }
@@ -81,8 +87,7 @@ const Project = ({ params }) => {
       </div>
           <div className="uk-section">
         <div className="uk-container uk-container-small">
-          {project.attributes.project_updates.data &&
-            project.attributes.project_updates.data.map(update => <UpdateBlock update={update} key={update.id} />)}
+              {project.attributes.project_updates.data.map(update => <UpdateBlock update={update} key={ update.id }/>) }
               </div>
         </div>
       <div className="uk-section">
@@ -97,15 +102,18 @@ const Project = ({ params }) => {
 };
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: false };
+  const projects = await fetchAPI("/api/projects?populate=*");
+  return {
+      paths: projects.data.map((project) => ({
+          params: {
+              slug: project.attributes.Slug,
+            },
+        })),
+        fallback: false,
+    };
 }
 
 export async function getStaticProps({ params }) {
-    // const projects = await fetchAPI(
-    //     `/projects?slug=${params.slug}&populate[project_updates][populate]=*`
-    // );
-    
-    //const categories = await fetchAPI("/categories?populate=*");
 
   return {
     props: {params},
