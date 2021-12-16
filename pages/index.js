@@ -20,7 +20,7 @@ const Home = ({ }) => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     
-  const homepage = data.homepage ? data.homepage.data.attributes : {};
+  const homepage = data.homepage.data ? data.homepage.data.attributes : {};
 
   return (
     <Layout>

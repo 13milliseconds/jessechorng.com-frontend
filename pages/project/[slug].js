@@ -60,7 +60,7 @@ const Project = ({ params }) => {
     }
     `, { variables: { slug: params.slug } });
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    if (error) return <p>Error :( { console.log(error) }</p>;
     
   const project = data.projects.data[0];
   
