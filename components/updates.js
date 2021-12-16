@@ -52,7 +52,7 @@ const Articles = ({ articles }) => {
 
   return (
     <div>
-          <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid uk-grid="masonry: true">
+          <div className="uk-child-width-1-2@m uk-grid-match uk-grid-medium" data-uk-grid uk-grid="masonry: true">
             {updates.map((update, i) => {
               return (
                 <Card
