@@ -31,7 +31,7 @@ const Nav = ({}) => {
           is an
           <div id="categories">
             { categories.map(category =>
-            <div className="category">
+              <div className="category" key={ category.attributes.Title }>
               <div className="box"></div>{ category.attributes.Title}
               </div>
               )}

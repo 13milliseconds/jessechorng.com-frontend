@@ -22,14 +22,13 @@ const Years = () => {
   let years = [];
   updates.forEach(update => {
     let year = new Date(update.attributes.updateDate).getFullYear();
-    console.log(years)
     !years.includes(year) && years.push(year)
   });
 
   return (
     <div id="years">
       {years.map((year, i) => {
-        return <div className={[styles.year, i==0 && styles.current ].join(' ')}><a>{year}</a></div>
+        return <div className={[styles.year, i == 0 && styles.current].join(' ')} key={year}><a>{year}</a></div>
        })}
     </div>
   );
