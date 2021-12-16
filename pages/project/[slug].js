@@ -97,7 +97,7 @@ const Project = ({ params }) => {
 };
 
 export async function getStaticPaths() {
-  return { paths: [], fallback: boolean };
+  return { paths: [], fallback: false };
 }
 
 export async function getStaticProps({ params }) {
