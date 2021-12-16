@@ -11,7 +11,7 @@ const Home = ({ }) => {
     homepage{
         data { 
         attributes{
-            title
+            Title
           }
         }
       }
@@ -27,7 +27,6 @@ const Home = ({ }) => {
       <Seo seo={homepage.seo}/>
       <div className="uk-section">
         <div className="uk-container uk-container-large">
-          <h1>{homepage.title}</h1>
           <div className="uk-grid uk-grid-large">
             <div id="year">
               <Years />

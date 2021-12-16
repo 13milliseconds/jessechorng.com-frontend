@@ -32,6 +32,10 @@ const Articles = ({ articles }) => {
                 data{
                   attributes{
                     url
+                    width
+                    height
+                    alternativeText
+                    name
                   }
                 }
               }
