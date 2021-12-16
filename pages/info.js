@@ -15,14 +15,14 @@ const Info = ({ homepage }) => {
             title
             biography
           }
-  }
-}
-}
+        }
+      }
+    }
     `);
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     
-  const infoContent = data.info.data.attributes;
+  const infoContent = data.info.data ? data.info.data.attributes : {};
   
   return (
     <Layout>
