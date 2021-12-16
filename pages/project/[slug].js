@@ -104,11 +104,11 @@ const Project = ({ params }) => {
 export async function getStaticPaths() {
   const projects = await fetchAPI("/api/projects?populate=*");
   return {
-      paths: projects.data.map((project) => ({
+      paths: projects.data ? projects.data.map((project) => ({
           params: {
               slug: project.attributes.Slug,
             },
-        })),
+        })) : [],
         fallback: false,
     };
 }
