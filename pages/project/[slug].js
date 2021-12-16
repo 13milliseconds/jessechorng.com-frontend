@@ -62,7 +62,9 @@ const Project = ({ params }) => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
     
-    const project = data.projects.data[0];
+  const project = data.projects.data[0];
+  
+  if (!project) return '';
     
   const imageUrl = getStrapiMedia(project.image);
 
