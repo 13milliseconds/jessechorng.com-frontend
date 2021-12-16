@@ -35,10 +35,12 @@ const MyApp = ({ Component, pageProps }) => {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/css/uikit.min.css"
         />
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js" />
-        <Script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
       </Head>
+      
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js" />
+      <Script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
+
       <GlobalContext.Provider value={global}>
         <ApolloProvider client={client}>
           <Component {...pageProps} />
