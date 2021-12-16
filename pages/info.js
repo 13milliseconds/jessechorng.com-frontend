@@ -1,10 +1,9 @@
 import React from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { fetchAPI } from "../lib/api";
 import { useQuery, gql } from "@apollo/client";
 
-const Info = ({ homepage }) => {
+const Info = ({  }) => {
   const { loading, error, data } = useQuery(gql`
   query{
     info{
@@ -24,7 +23,7 @@ const Info = ({ homepage }) => {
   
   return (
     <Layout>
-      <Seo seo={homepage.seo}/>
+      <Seo seo={infoContent.seo}/>
       <div className="uk-section">
         <div className="uk-container uk-container-large">
           <h1>{ infoContent.title }</h1>
@@ -38,17 +37,5 @@ const Info = ({ homepage }) => {
     </Layout>
   );
 };
-
-export async function getStaticProps() {
-  // Run API calls in parallel
-  const [ homepage] = await Promise.all([
-    fetchAPI("/api/homepage"),
-  ]);
-
-  return {
-    props: { homepage },
-    revalidate: 1,
-  };
-}
 
 export default Info;
