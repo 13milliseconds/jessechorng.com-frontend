@@ -3,9 +3,25 @@ import Updates from "../components/updates";
 import Years from "../components/years";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { fetchAPI } from "../lib/api";
+import { useQuery, gql } from "@apollo/client";
 
-const Home = ({ homepage }) => {
+const Home = ({ }) => {
+  const { loading, error, data } = useQuery(gql`
+  query{
+    homepage{
+        data { 
+        attributes{
+            title
+          }
+        }
+      }
+    }
+    `);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+    
+  const homepage = data.homepage.data ? data.homepage.data.attributes : {};
+
   return (
     <Layout>
       <Seo seo={homepage.seo}/>
@@ -25,17 +41,5 @@ const Home = ({ homepage }) => {
     </Layout>
   );
 };
-
-export async function getStaticProps() {
-  // Run API calls in parallel
-  const [ homepage] = await Promise.all([
-    fetchAPI("/api/homepage"),
-  ]);
-
-  return {
-    props: { homepage },
-    revalidate: 1,
-  };
-}
 
 export default Home;
