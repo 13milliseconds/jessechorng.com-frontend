@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { getStrapiMedia } from "../lib/media";
 
-const Image = ({ image, style }) => {
+const ImageEl = ({ image, style }) => {
   const imageUrl = getStrapiMedia(image);
 
   return (
@@ -13,4 +13,4 @@ const Image = ({ image, style }) => {
   );
 };
 
-export default Image;
+export default ImageEl;
