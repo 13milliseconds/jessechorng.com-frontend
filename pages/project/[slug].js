@@ -81,7 +81,8 @@ const Project = ({ params }) => {
       </div>
           <div className="uk-section">
         <div className="uk-container uk-container-small">
-              {project.attributes.project_updates.data.map(update => <UpdateBlock update={update} key={ update.id }/>) }
+          {project.attributes.project_updates.data &&
+            project.attributes.project_updates.data.map(update => <UpdateBlock update={update} key={update.id} />)}
               </div>
         </div>
       <div className="uk-section">
@@ -96,15 +97,7 @@ const Project = ({ params }) => {
 };
 
 export async function getStaticPaths() {
-  const projects = await fetchAPI("/api/projects?populate=*");
-  return {
-      paths: projects.data.map((project) => ({
-          params: {
-              slug: project.attributes.Slug,
-            },
-        })),
-        fallback: false,
-    };
+  return;
 }
 
 export async function getStaticProps({ params }) {
