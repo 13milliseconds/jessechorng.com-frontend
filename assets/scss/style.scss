@@ -1,12 +1,12 @@
-$black : #000000;
-$white : #ffffff;
+@import './variables.scss';
 
 body{
     font-family: 'Basier Square';
-  }
-  a {
-      text-decoration: none;
-    }
+}
+
+a {
+  text-decoration: none;
+}
     
     h1 {
       font-size: 2em;
@@ -106,23 +106,3 @@ body{
       opacity: 1;
       transition: opacity 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
     }
-  
-  
-  /* Font */
-  @font-face {
-    font-family: 'Basier Square';
-    src: url('../fonts/BasierSquare-Regular.woff2') format('woff2'),
-        url('../fonts/BasierSquare-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Migra';
-    src: url('../fonts/Migra-Extralight.woff2') format('woff2'),
-        url('../fonts/Migra-Extralight.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }

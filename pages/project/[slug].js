@@ -23,10 +23,12 @@ const Project = ({ params }) => {
                   attributes{
                     Content{
                       __typename
-                      ... on ComponentMediaPhoto{
+                      ... on ComponentMediaPhotos{
                         id
-                        Description
-                        Photo{
+                        columns
+                        photo{
+                          description
+                        photo{
                           data{
                             attributes{
                               url
@@ -36,6 +38,7 @@ const Project = ({ params }) => {
                               name
                             }
                           }
+                        }
                         }
                       }
                       ... on ComponentMediaText{

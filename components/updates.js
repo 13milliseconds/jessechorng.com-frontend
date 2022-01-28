@@ -10,6 +10,16 @@ const Articles = ({ articles }) => {
         id
         attributes {
           updateDate
+          featuredImage{
+            data{
+              attributes{
+                width
+                height
+                url
+                alternativeText
+              }
+            }
+          }
           project{
             data{
               attributes{
@@ -24,33 +34,16 @@ const Articles = ({ articles }) => {
               }
             }
           }
-          Content{
-            __typename
-            ... on ComponentMediaPhoto{
-              Description
-              Photo{
-                data{
-                  attributes{
-                    url
-                    width
-                    height
-                    alternativeText
-                    name
-                  }
-                }
-              }
-            }
-            ... on ComponentMediaText{
-              Text
-            }
-          }
         }
   }
 }
 }
     `);
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+  if (error) {
+    console.log(error)
+    return <p>Error :(</p>
+  };
     
     const updates = data.projectUpdates.data;
 

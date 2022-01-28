@@ -1,30 +1,29 @@
-import React from "react";
 import Moment from "react-moment";
-import Image from "./image";
+
+import MediaGallery from "./media-gallery";
+import MediaText from "./media-text";
+
+import styles from '../assets/scss/update.module.scss'
+
+const renderComponent = (contentBlock) => {
+  switch(contentBlock.__typename) {
+    case 'ComponentMediaText':
+      return <MediaText component={contentBlock} key={contentBlock.__typename + contentBlock.id} />;
+    case 'ComponentMediaPhotos':
+      return <MediaGallery component={contentBlock} key={contentBlock.__typename + contentBlock.id} />
+    default:
+      return '';
+  }
+}
 
 const UpdateBlock = ({ update }) => {
+
   return (
-    <div key={ update.id }>
+    <div className={styles.updateBlock} key={ update.id }>
       <p className="uk-text-meta uk-margin-remove-top">
-                <Moment format="MMM Do YYYY">{update.published_at}</Moment>
-          </p>
-      <div className="uk-child-width-1-2@s" data-uk-grid="true">
-        <div>
-          <div className="uk-child-width-1-2@m uk-grid-match" data-uk-grid>
-            { update.attributes.Content.map(contentBlock => contentBlock.__typename == 'ComponentMediaText' ? 
-              <div className="uk-card-media-top" key={ contentBlock.__typename + contentBlock.id }>
-              {contentBlock.Text}
-          </div>
-            :
-              <div className="uk-card-media-top" key={ contentBlock.__typename + contentBlock.id }>
-                <Image image={contentBlock.Photo} />
-                <div className="caption">
-                  {contentBlock.Description}
-                  </div>
-          </div>  )}
-          </div>
-        </div>
-      </div>
+        <Moment format="MMM Do YYYY">{update.published_at}</Moment>
+      </p>
+      {update.attributes.Content.map(contentBlock => renderComponent(contentBlock) )}
     </div>
   );
 };
