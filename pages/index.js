@@ -1,7 +1,6 @@
 import React from "react";
 import Updates from "../components/updates";
 import Years from "../components/years";
-import Layout from "../components/layout";
 import Seo from "../components/seo";
 import { useQuery, gql } from "@apollo/client";
 
@@ -23,7 +22,7 @@ const Home = ({ }) => {
   const homepage = data.homepage.data ? data.homepage.data.attributes : {};
 
   return (
-    <Layout>
+    <>
       <Seo seo={homepage.seo}/>
       <div className="uk-section">
         <div className="uk-container uk-container-large">
@@ -35,7 +34,7 @@ const Home = ({ }) => {
         </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

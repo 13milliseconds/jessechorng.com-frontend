@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "./card";
 import { useQuery, gql } from "@apollo/client";
 import moment from "moment"
+import { GlobalContext } from "../pages/_app";
+import slugify from "slugify";
 
 const Articles = ({ articles }) => {
+  const context = useContext(GlobalContext);
   const { loading, error, data } = useQuery(gql`
   query Project_updates {
     projectUpdates(sort: "updateDate:desc"){
@@ -53,7 +56,6 @@ const Articles = ({ articles }) => {
   let currentYear;
   const yearMarker = (newYear) => {
     if (newYear !== currentYear) { 
-      console.log(newYear)
       currentYear = newYear
       return <div id={newYear}></div>
     }
@@ -63,14 +65,16 @@ const Articles = ({ articles }) => {
     <div>
           <div className="uk-child-width-1-2@m uk-grid-match uk-grid-medium" data-uk-grid uk-grid="masonry: true">
         {updates.map((update) => {
-          return (
+          let category = slugify(update.attributes.project.data.attributes.category.data.attributes.Title, {lower:true})
+          if (context.currentCat == '' || context.currentCat == category) {
+            return (
             <div key={update.id} >
                 { yearMarker(moment(update.attributes.updateDate).year()) }
                 <Card
                   update={update}
                 />
                 </div>
-              );
+              );}
             })}
           </div>
     </div>

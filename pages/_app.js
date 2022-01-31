@@ -1,7 +1,9 @@
 import App from "next/app";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Script from 'next/script'
 import "../assets/scss/style.scss";
+import Layout from "../components/layout";
 import { createContext } from "react";
 import { getStrapiMedia } from "../lib/media";
 import { fetchAPI } from "../lib/api";
@@ -18,10 +20,27 @@ const client = new ApolloClient({
 });
 
 // Store Strapi Global object in context
-export const GlobalContext = createContext({});
+export const GlobalContext = createContext();
+
+const functionTemplate = () => {}
 
 const MyApp = ({ Component, pageProps }) => {
-  const { global } = pageProps;
+  let global = { ...pageProps.global, 
+    updateCat: functionTemplate,
+    currentCat: ''
+  }
+  const [context, setContext] = useState(global)
+
+  const updateContext = (contextUpdates = {}) =>
+    setContext(currentContext => ({ ...currentContext, ...contextUpdates }))
+
+  useEffect(() => {
+    if (context?.updateCat === functionTemplate) {
+      updateContext({
+        updateCat: value => updateContext({ currentCat: value }),
+      })
+    }
+  }, [context?.updateCat])
 
   return (
     <>
@@ -41,9 +60,11 @@ const MyApp = ({ Component, pageProps }) => {
       <Script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js" />
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.js" />
 
-      <GlobalContext.Provider value={global}>
+      <GlobalContext.Provider value={context}>
         <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ApolloProvider>
       </GlobalContext.Provider>
     </>

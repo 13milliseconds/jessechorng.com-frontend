@@ -2,8 +2,9 @@ import Link from "next/link";
 import { useContext } from "react";
 import { GlobalContext } from "../pages/_app";
 import { useQuery, gql } from "@apollo/client";
+import slugify from 'slugify'
 
-const Nav = ({}) => {
+const Nav = ({changeCat}) => {
   const context = useContext(GlobalContext);
   const { loading, error, data } = useQuery(gql`
   query {
@@ -17,9 +18,14 @@ const Nav = ({}) => {
     }
     `);
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+  if (error) return <p>Error :(</p>;
     
   const categories = data.categories.data;
+
+  // Select or unselect a category
+  const updateCat = (cat) => {
+    context?.updateCat(context.currentCat == cat ? '' : cat)
+  }
   
   return (
     <div>
@@ -28,13 +34,17 @@ const Nav = ({}) => {
               <Link href="/">
                 <a className="title">{ context.data.attributes.title } </a>
           </Link>
-          is an
+          is a
           <div id="categories">
-            { categories.map(category =>
-              <div className="category" key={ category.attributes.Title }>
+            {categories.map(category => { 
+              const slug = slugify(category.attributes.Title, { lower: true })
+              return <div
+                className={slug == context.currentCat ? "category selected" : "category"}
+                onClick={() => updateCat(slug)}
+                key={category.attributes.Title}>
               <div className="box"></div>{ category.attributes.Title}
               </div>
-              )}
+            })}
           </div>
         </div>
         <div className="uk-navbar-right">
