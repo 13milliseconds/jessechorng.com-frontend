@@ -28,9 +28,7 @@ const Home = ({ }) => {
       <div className="uk-section">
         <div className="uk-container uk-container-large">
           <div className="uk-grid uk-grid-large">
-            <div id="year">
-              <Years />
-            </div>
+            <Years />
             <div className="uk-width-expand">
               <Updates />
             </div>

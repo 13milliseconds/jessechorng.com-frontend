@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "./card";
 import { useQuery, gql } from "@apollo/client";
+import moment from "moment"
 
 const Articles = ({ articles }) => {
   const { loading, error, data } = useQuery(gql`
   query Project_updates {
-    projectUpdates{
+    projectUpdates(sort: "updateDate:desc"){
         data { 
         id
         attributes {
@@ -24,6 +25,7 @@ const Articles = ({ articles }) => {
             data{
               attributes{
                 Slug
+                Name
                 category{
                   data{
                     attributes{
@@ -45,17 +47,29 @@ const Articles = ({ articles }) => {
     return <p>Error :(</p>
   };
     
-    const updates = data.projectUpdates.data;
+  const updates = data.projectUpdates.data;
+  
+  //Keep track of year for years menu
+  let currentYear;
+  const yearMarker = (newYear) => {
+    if (newYear !== currentYear) { 
+      console.log(newYear)
+      currentYear = newYear
+      return <div id={newYear}></div>
+    }
+  }
 
   return (
     <div>
           <div className="uk-child-width-1-2@m uk-grid-match uk-grid-medium" data-uk-grid uk-grid="masonry: true">
-            {updates.map((update, i) => {
-              return (
+        {updates.map((update) => {
+          return (
+            <div key={update.id} >
+                { yearMarker(moment(update.attributes.updateDate).year()) }
                 <Card
                   update={update}
-                  key={update.id}
                 />
+                </div>
               );
             })}
           </div>

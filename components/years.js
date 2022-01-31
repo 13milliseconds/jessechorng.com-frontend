@@ -1,11 +1,11 @@
 import React from "react";
-import styles from './years.module.scss'
+import styles from '../assets/scss/years.module.scss'
 import { useQuery, gql } from "@apollo/client";
 
 const Years = () => {
   const { loading, error, data } = useQuery(gql`
   query Project_updates {
-    projectUpdates{
+    projectUpdates(sort: "updateDate:desc"){
         data { 
         id
         attributes {
@@ -27,9 +27,11 @@ const Years = () => {
 
   return (
     <div id="years">
-      {years.map((year, i) => {
-        return <div className={[styles.year, i == 0 && styles.current].join(' ')} key={year}><a>{year}</a></div>
-       })}
+      <div className={styles.yearsWrap}>
+        {years.map((year, i) => {
+          return <div className={[styles.year, i == 0 && styles.current].join(' ')} key={year}><a href={'#' + year}>{year}</a></div>
+        })}
+      </div>
     </div>
   );
 };

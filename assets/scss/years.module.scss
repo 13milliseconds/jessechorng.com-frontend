@@ -1,0 +1,17 @@
+@import './variables.scss';
+.yearsWrap{
+    position: sticky;
+    top: $grid-gutter;
+}
+
+.year{
+    a{
+        color: $grey;
+    }
+}
+
+.current{
+    a{
+        color: $black;
+    }
+}
